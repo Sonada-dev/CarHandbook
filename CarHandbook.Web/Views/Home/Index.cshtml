@@ -3,7 +3,55 @@
     ViewData["Title"] = "Home Page";
 }
 
-@foreach(var brand in Model)
-{
-    <p>@brand.Name</p>
-}
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Active)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Models)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @{
+                        string text = item.Active ? "Активно" : "Не активно";
+                        string color = item.Active ? "green" : "gray";
+                    }
+                    <span style="color: @color;">@text</span>
+                </td>
+                <td>
+                    <select class="form-select" id="modelDropdown_@item.Id">
+                        @if(item.Models is not null)
+                        {
+                            foreach (var itemModel in item.Models)
+                            {
+                                if(itemModel is not null)
+                                {
+                                    <option value="@itemModel.Id">@itemModel.Name</option>
+                                }   
+                            }
+                        }
+                    </select>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

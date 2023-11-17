@@ -1,6 +1,11 @@
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddHttpClient("CarHandbookApi", client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7017/api/");
+});
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();

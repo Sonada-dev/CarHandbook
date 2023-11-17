@@ -53,7 +53,7 @@ namespace CarHandbook.API.Repository
 
         public async Task UpdateBrand(int id, Brand brand)
         {
-            string query = $"UPDATE Brands SET Name = @{nameof(Brand.Name)}, Active = @{nameof(Brand.Active)} WHERE Id=@id)";
+            string query = $"UPDATE Brands SET Name = @{nameof(Brand.Name)}, Active = @{nameof(Brand.Active)} WHERE Id=@id";
 
             using var connection = _dapperContext.CreateConnection();
 
