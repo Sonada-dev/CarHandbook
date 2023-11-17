@@ -1,0 +1,9 @@
+﻿@model IEnumerable<CarHandbook.API.Models.Brand>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@foreach(var brand in Model)
+{
+    <p>@brand.Name</p>
+}
