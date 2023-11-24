@@ -1,0 +1,34 @@
+﻿@model CarHandbook.API.Models.Brand
+@{
+    ViewData["Title"] = "Создание марки";
+}
+
+<h1>Создание марки</h1>
+
+<h4>Марка</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateBrand">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Active" class="form-check-label"></label>
+                <input type="checkbox" asp-for="Active" class="form-check-input" />
+                <span asp-validation-for="Active" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <input type="submit" value="Создать" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Вернуться на главную</a>
+</div>
+

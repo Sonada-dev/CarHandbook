@@ -75,14 +75,31 @@ namespace CarHandbook.API.Repository
 
             using var connection = _dapperContext.CreateConnection();
 
-            var brands = await connection.QueryAsync<Brand, Model, Brand>(procedure,(brand, model) =>
+            // Создание словаря для отслеживания уникальных брендов по их Id
+            var brandDictionary = new Dictionary<int, Brand>();
+
+            await connection.QueryAsync<Brand, Model, Brand>(procedure, (brand, model) =>
             {
-                brand.Models.Add(model);
-                return brand;
+                // Проверка, существует ли бренд уже в словаре
+                if (!brandDictionary.TryGetValue(brand.Id, out var existingBrand))
+                {
+                    existingBrand = brand;
+                    existingBrand.Models = new List<Model>();
+                    brandDictionary.Add(existingBrand.Id, existingBrand);
+                }
+
+                // Добавление модели, если бренд существует
+                existingBrand.Models.Add(model);
+                return existingBrand;
             },
             commandType: CommandType.StoredProcedure, splitOn: "Id");
 
-            return brands;
+            var distinctBrands = brandDictionary.Values;
+
+            return distinctBrands;
         }
+
+
+
     }
 }

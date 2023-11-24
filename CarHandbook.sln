@@ -5,7 +5,7 @@ VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarHandbook.API", "CarHandbook.API\CarHandbook.API.csproj", "{7750D476-93FA-4DB6-A5DA-D19919896B1B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarHandbook.Web", "CarHandbook.Web\CarHandbook.Web.csproj", "{0A942819-A4EC-46E0-9147-9E7775590923}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarHandbook.Web", "CarHandbook.Web\CarHandbook.Web.csproj", "{0A942819-A4EC-46E0-9147-9E7775590923}"
 	ProjectSection(ProjectDependencies) = postProject
 		{7750D476-93FA-4DB6-A5DA-D19919896B1B} = {7750D476-93FA-4DB6-A5DA-D19919896B1B}
 	EndProjectSection

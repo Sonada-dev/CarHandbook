@@ -1,11 +1,31 @@
 ﻿@model IEnumerable<CarHandbook.API.Models.Brand>
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Марки и модели";
 }
 
-<table class="table">
+<h1>Марки и модели</h1>
+
+
+
+
+<div class="d-flex justify-content-between m-3">
+    <button onclick="toggleAllTables()" class="btn btn-outline-primary" type="button" id="toggleAllButton">
+        Показать все модели
+    </button>
+    <div>
+        <a asp-action="CreateBrand" class="btn btn-primary">Создать новую Марку</a>
+        <a asp-action="CreateModel" class="btn btn-primary">Создать новую Модель</a>
+    </div>
+</div>
+
+
+
+<table class="table table-primary table-hover table-striped">
     <thead>
         <tr>
+            <th style="width: 5rem">
+                
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Id)
             </th>
@@ -15,15 +35,18 @@
             <th>
                 @Html.DisplayNameFor(model => model.Active)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Models)
-            </th>
+            <th class="col-md-3 col-sm-6"></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
+                <td>
+                    <button onclick="toggleButton(this)" class="btn" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample-@item.Id" aria-expanded="false" aria-controls="collapseExample-@item.Id">
+                        ▼
+                    </button>
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Id)
                 </td>
@@ -32,26 +55,78 @@
                 </td>
                 <td>
                     @{
+                        string activeColor = item.Active ? "text-success" : "text-muted";
                         string text = item.Active ? "Активно" : "Не активно";
-                        string color = item.Active ? "green" : "gray";
                     }
-                    <span style="color: @color;">@text</span>
+                    <span class="@activeColor">@text</span>
                 </td>
                 <td>
-                    <select class="form-select" id="modelDropdown_@item.Id">
-                        @if(item.Models is not null)
-                        {
-                            foreach (var itemModel in item.Models)
+                    <div class="d-flex justify-content-center gap-2">
+                        <a asp-action="UpdateBrand" asp-route-id="@item.Id" class="btn btn-warning ">Редактировать</a>
+                        <form method="post" asp-action="DeleteBrand" asp-route-id="@item.Id">
+                            <input type="submit" value="Удалить" class="btn btn-danger" />
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            <tr id="collapseExample-@item.Id" class="collapse">
+                <td colspan="5">
+                    <table class="table-sm">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Models[0]!.Id)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Models[0]!.Name)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Models[0]!.Active)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Models[0]!.BrandId)
+                                </th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var itemModel in item.Models)
                             {
                                 if(itemModel is not null)
                                 {
-                                    <option value="@itemModel.Id">@itemModel.Name</option>
-                                }   
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => itemModel.Id)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => itemModel.Name)
+                                        </td>
+                                        <td style="white-space: nowrap;">
+                                            @{
+                                                activeColor = itemModel.Active ? "text-success" : "text-muted";
+                                                text = itemModel.Active ? "Активно" : "Не активно";
+                                            }
+                                            <span class="@activeColor" >@text</span>
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => itemModel.BrandId)
+                                        </td>
+                                        <td>
+                                            <div class="d-flex justify-content-center gap-2">
+                                                <a asp-action="UpdateModel" asp-route-id="@itemModel.Id" class="btn btn-warning ">Редактировать</a>
+                                                <form method="post" asp-action="DeleteModel" asp-route-id="@itemModel.Id">
+                                                    <input type="submit" value="Удалить" class="btn btn-danger" />
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
                             }
-                        }
-                    </select>
+                        </tbody>
+                    </table>
                 </td>
             </tr>
         }
     </tbody>
+   
 </table>

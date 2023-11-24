@@ -1,10 +1,11 @@
 ﻿using CarHandbook.API.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace CarHandbook.Web.Models
 {
-    public class BrandModelViewModel
+    public class BrandsModelViewModel
     {
-        public Brand? Brand { get; set; }
+        public IEnumerable<Brand> brands { get; set; } = new List<Brand>();
         public Model? Model { get; set; }
     }
 }

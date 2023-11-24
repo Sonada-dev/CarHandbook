@@ -1,0 +1,46 @@
+﻿@model BrandsModelViewModel
+@{
+    ViewData["Title"] = "Изменение модели";
+}
+
+<h1>Изменение модели</h1>
+
+<h4>Модель</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditModel" asp-route-id="@Model.Model!.Id" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Model!.Id" />
+            <div class="form-group">
+                <label asp-for="Model!.Name" class="control-label"></label>
+                <input asp-for="Model!.Name" class="form-control" />
+                <span asp-validation-for="Model!.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Model!.Active" class="form-check-label"></label>
+                <input type="checkbox" asp-for="Model!.Active" class="form-check-input" />
+                <span asp-validation-for="Model!.Active" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Model!.BrandId" class="control-label"></label>
+                <select asp-for="Model!.BrandId" class="form-control">
+                    <option value="">Выберите модель</option>
+                    @foreach (var item in Model.brands)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
+                <span asp-validation-for="Model!.BrandId" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <input type="submit" value="Изменить" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Вернуться на главную</a>
+</div>
+

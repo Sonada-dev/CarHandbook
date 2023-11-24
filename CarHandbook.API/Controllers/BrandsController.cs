@@ -45,7 +45,7 @@ namespace CarHandbook.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateBrand(int id,[FromBody] Brand updBrand)
         {
-            var brand = _brandRepository.GetBrandById(id).Result;
+            var brand = await _brandRepository.GetBrandById(id);
             if (brand is null)
                 return NotFound();
 
@@ -57,7 +57,7 @@ namespace CarHandbook.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteBrand(int id)
         {
-            var brand = _brandRepository.GetBrandById(id).Result;
+            var brand = await _brandRepository.GetBrandById(id);
             if (brand is null)
                 return NotFound();
 

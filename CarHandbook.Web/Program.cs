@@ -28,5 +28,8 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllerRoute(
+    name: "EditModel",
+    pattern: "{controller=Home}/{action=UpdateModel}/{id?}");
 
 app.Run();
