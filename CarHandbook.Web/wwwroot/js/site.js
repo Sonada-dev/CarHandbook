@@ -44,8 +44,8 @@ function toggleAllTables() {
             targetTable.classList.remove('show');
             button.setAttribute('aria-expanded', 'false');
         });
-        toggleAllButton.textContent = 'Открыть все таблицы';
+        toggleAllButton.textContent = 'Показать все модели';
     } else {
-        toggleAllButton.textContent = 'Скрыть все таблицы';
+        toggleAllButton.textContent = 'Скрыть все модели';
     }
 }
